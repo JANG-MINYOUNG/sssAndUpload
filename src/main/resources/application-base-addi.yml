@@ -1,1 +1,6 @@
-spring.application.name=sssAndUpload
+security:
+  oauth2:
+    client:
+      registration:
+        kakao:
+          clientId: 57be144d138a3418943490c4f47bfac4
