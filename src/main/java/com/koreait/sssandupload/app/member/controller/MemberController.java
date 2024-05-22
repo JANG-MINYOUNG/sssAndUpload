@@ -28,6 +28,11 @@ public class MemberController {
     return "member/join";
   }
 
+  @GetMapping("/login")
+  public String showLogin() {
+    return "member/login";
+  }
+
   @PostMapping("/join")
   public String join(HttpServletRequest req, String username, String password, String email, MultipartFile profileImg) {
     Member oldMember = memberService.getMemberByUsername(username);
@@ -36,7 +41,7 @@ public class MemberController {
     password = passwordEncoder.encode(password);
 
     if (oldMember != null) {
-      return "redirect:/?errorMsg=AlreadyExists";
+      return "redirect:/?errorMsg=Already done.";
     }
 
     Member member = memberService.join(username, password, email, profileImg);
@@ -53,7 +58,6 @@ public class MemberController {
   @PreAuthorize("isAuthenticated()")
   @GetMapping("/profile")
   public String showProfile(Principal principal, Model model) {
-
     Member loginedMember = memberService.getMemberByUsername(principal.getName());
 
     model.addAttribute("loginedMember", loginedMember);
